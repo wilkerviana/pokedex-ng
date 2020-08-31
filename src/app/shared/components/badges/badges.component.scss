@@ -1,0 +1,20 @@
+.badge {
+    border-radius: .3rem;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: .6rem;
+    width: fit-content;
+    & i {
+        padding-right: .6rem;
+        img {
+            width: 1.4rem;
+        }
+    }
+    & span {
+        display: inline-block;
+        height: 1.6rem;
+    }
+}
