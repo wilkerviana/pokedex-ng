@@ -1,0 +1,2030 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "Pokemon",
+            "id": "interface-Pokemon-7f9e926277fc3bcd5ed9b125961576af",
+            "file": "src/app/shared/components/cards/cards.component.ts",
+            "type": "interface",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  ChangeDetectionStrategy,\n  Input,\n  ViewChild,\n  ElementRef,\n} from '@angular/core';\n\nexport interface Pokemon {\n  name: string;\n  number: string;\n  type: string;\n  badges: Array<string>;\n}\n\n@Component({\n  selector: 'app-cards',\n  templateUrl: './cards.component.html',\n  styleUrls: ['./cards.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class CardsComponent implements OnInit {\n  @ViewChild('card', { static: true }) card: ElementRef<HTMLElement>;\n  @Input() pokemon: Pokemon;\n\n  imgUrl = `https://pokeres.bastionbot.org/images/pokemon`;\n\n  constructor() {}\n\n  ngOnInit(): void {\n    this.card.nativeElement.style.setProperty(\n      'background-color',\n      `var(--bgcolor-type-${this.pokemon.type})`\n    );\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "badges",
+                    "type": "Array<string>",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "number",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "type",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "PokedexService",
+            "id": "injectable-PokedexService-92a079a93604bf91d002e85ae1fc304b",
+            "file": "src/app/shared/services/pokedex.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getAllPokemons",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 12
+                },
+                {
+                    "name": "getPokemon",
+                    "args": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 18,
+                    "jsdoctags": [
+                        {
+                            "name": "url",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable } from 'rxjs';\nimport { pluck, map, tap } from 'rxjs/operators';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class PokedexService {\n  constructor(private http: HttpClient) {}\n\n  getAllPokemons(): Observable<any> {\n    return this.http\n      .get<any>('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0')\n      .pipe(pluck('results'));\n  }\n\n  getPokemon(url: string): Observable<any> {\n    return this.http\n      .get<any>(`${url}`)\n      .pipe(map(({ id, name, types }) => ({ id, name, types })));\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        }
+    ],
+    "classes": [
+        {
+            "name": "AppPage",
+            "id": "class-AppPage-a0db91bfa3b9914e9048612074084ee6",
+            "file": "e2e/src/app.po.ts",
+            "type": "class",
+            "sourceCode": "import { browser, by, element } from 'protractor';\n\nexport class AppPage {\n  navigateTo(): Promise<unknown> {\n    return browser.get(browser.baseUrl) as Promise<unknown>;\n  }\n\n  getTitleText(): Promise<string> {\n    return element(by.css('app-root .content span')).getText() as Promise<string>;\n  }\n}\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getTitleText",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<string>",
+                    "typeParameters": [],
+                    "line": 8
+                },
+                {
+                    "name": "navigateTo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<unknown>",
+                    "typeParameters": [],
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        }
+    ],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-1e4d379814e998ba784513d6a2cf232e",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss'],\n})\nexport class AppComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<router-outlet></router-outlet>"
+        },
+        {
+            "name": "BadgesComponent",
+            "id": "component-BadgesComponent-ca786829f64eda90ea897e6652e3500b",
+            "file": "src/app/shared/components/badges/badges.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-badges",
+            "styleUrls": [
+                "./badges.component.scss"
+            ],
+            "styles": [],
+            "template": "<div #badge class=\"badge\">   <i><img [src]=\"pathIcon\" [alt]=\"type | titlecase\" /></i>\n   <span>{{ type | titlecase }}</span>\n </div>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "type",
+                    "line": 21,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "badge",
+                    "type": "ElementRef<HTMLElement>",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'badge', {static: true}"
+                        }
+                    ]
+                },
+                {
+                    "name": "pathIcon",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Input,\n  ViewChild,\n  ElementRef,\n  OnInit,\n} from '@angular/core';\n\n@Component({\n  selector: 'app-badges',\n  template: ` <div #badge class=\"badge\">\n    <i><img [src]=\"pathIcon\" [alt]=\"type | titlecase\" /></i>\n    <span>{{ type | titlecase }}</span>\n  </div>`,\n  styleUrls: ['./badges.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BadgesComponent implements OnInit {\n  @ViewChild('badge', { static: true }) badge: ElementRef<HTMLElement>;\n  @Input() type: string;\n\n  pathIcon: string;\n\n  ngOnInit(): void {\n    this.badge.nativeElement.style.setProperty(\n      'background-color',\n      `var(--color-type-${this.type})`\n    );\n\n    this.pathIcon = `/assets/icons/types/${this.type}.svg`;\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".badge {\n    border-radius: .3rem;\n    color: #ffffff;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    font-size: 1.2rem;\n    padding: .6rem;\n    width: fit-content;\n    & i {\n        padding-right: .6rem;\n        img {\n            width: 1.4rem;\n        }\n    }\n    & span {\n        display: inline-block;\n        height: 1.6rem;\n    }\n}",
+                    "styleUrl": "./badges.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "implements": [
+                "OnInit"
+            ]
+        },
+        {
+            "name": "ButtonsComponent",
+            "id": "component-ButtonsComponent-548961f3e304a5fdffc2ba5b33a27ee8",
+            "file": "src/app/shared/components/buttons/buttons.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-buttons",
+            "styleUrls": [
+                "./buttons.component.scss"
+            ],
+            "styles": [],
+            "template": "<button class=\"btn\" [ngClass]=\"classes\">\n  {{ label }}\n</button>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "label",
+                    "line": 16,
+                    "type": "string"
+                },
+                {
+                    "name": "primary",
+                    "line": 14,
+                    "type": "boolean"
+                },
+                {
+                    "name": "selected",
+                    "line": 15,
+                    "type": "boolean"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-buttons',\n  template: `\n    <button class=\"btn\" [ngClass]=\"classes\">\n      {{ label }}\n    </button>\n  `,\n  styleUrls: ['./buttons.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ButtonsComponent {\n  @Input() primary: boolean;\n  @Input() selected: boolean;\n  @Input() label: string;\n\n  get classes(): string[] {\n    const mode = this.primary ? '-primary' : '-secondary';\n    const hovered = this.selected ? '-selected' : '';\n    return ['button-default', mode, hovered];\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".button-default {\n    border: none;\n    border-radius: 1rem;\n    color: #747476;\n    font-family: 'SF Pro Display', sans-serif;\n    font-size: 1.6rem;\n    padding: 2rem;\n    width: 300px;\n    &.-primary {\n        background-color: #F2F2F2;\n    }\n    &:hover, &.-selected {\n        background-color: #EA5D60;\n        color: #ffffff;\n        filter: drop-shadow(0px 10px 20px rgba(234, 93, 96, 0.3));\n    }\n}",
+                    "styleUrl": "./buttons.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 18
+                    }
+                }
+            }
+        },
+        {
+            "name": "CardsComponent",
+            "id": "component-CardsComponent-7f9e926277fc3bcd5ed9b125961576af",
+            "file": "src/app/shared/components/cards/cards.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-cards",
+            "styleUrls": [
+                "./cards.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./cards.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "pokemon",
+                    "line": 25,
+                    "type": "Pokemon"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "card",
+                    "type": "ElementRef<HTMLElement>",
+                    "optional": false,
+                    "description": "",
+                    "line": 24,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'card', {static: true}"
+                        }
+                    ]
+                },
+                {
+                    "name": "imgUrl",
+                    "defaultValue": "`https://pokeres.bastionbot.org/images/pokemon`",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  ChangeDetectionStrategy,\n  Input,\n  ViewChild,\n  ElementRef,\n} from '@angular/core';\n\nexport interface Pokemon {\n  name: string;\n  number: string;\n  type: string;\n  badges: Array<string>;\n}\n\n@Component({\n  selector: 'app-cards',\n  templateUrl: './cards.component.html',\n  styleUrls: ['./cards.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class CardsComponent implements OnInit {\n  @ViewChild('card', { static: true }) card: ElementRef<HTMLElement>;\n  @Input() pokemon: Pokemon;\n\n  imgUrl = `https://pokeres.bastionbot.org/images/pokemon`;\n\n  constructor() {}\n\n  ngOnInit(): void {\n    this.card.nativeElement.style.setProperty(\n      'background-color',\n      `var(--bgcolor-type-${this.pokemon.type})`\n    );\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".pokemon-card {\n    border-radius: 1rem;\n    max-width: 335px;\n    margin-top: 4rem;\n    position: relative;\n    width: 100%;\n    .card-container {\n        background: transparent;\n        overflow: hidden;\n        position: relative;\n        padding: 2rem 1.6rem;\n        height: 100%;\n        width: 100%;\n        &:after {\n            content: '';\n            background-image: url('../../../../assets/patterns/pokeball.svg');\n            background-repeat: no-repeat;\n            background-size: 145px;\n            background-position: top right;\n            position: absolute;\n            opacity: .1;\n            top: 0;\n            right: -30px;\n            height: 145px;\n            width: 145px;\n        }\n        &:before {\n            content: '';\n            background-image: url('../../../../assets/patterns/dots.svg');\n            background-repeat: no-repeat;\n            background-size: 75px;\n            background-position: top center;\n            position: absolute;\n            opacity: .1;\n            top: 0;\n            left: 7rem;\n            height: 32px;\n            width: 74px;\n        }\n    }\n}\n.pokemon-badges {\n    display: flex;\n    margin-top: .5rem;\n    & * {\n        margin-right: 5px;\n    }\n}\n\n.pokemon-image {\n    position: absolute;\n    top: -4rem;\n    right: 1rem;\n    width: 130px;\n    z-index: 100;\n    img {\n        width: 100%;\n    }\n}",
+                    "styleUrl": "./cards.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 27
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"pokemon-card\" #card>\n    <div class=\"card-container\">\n        <div class=\"pokemon-infos\">\n            <app-texts [kind]=\"'pokemon-number'\" [label]=\"pokemon?.number\" [color]=\"'rgba(23, 23, 27, 0.6)'\"></app-texts>\n            <app-texts [kind]=\"'pokemon-name'\" [label]=\"pokemon?.name | titlecase\" [color]=\"'#ffffff'\"></app-texts>\n            <div class=\"pokemon-badges\">\n                <app-badges *ngFor=\"let badge of pokemon?.badges\" [type]=\"badge\"></app-badges>\n            </div>\n        </div>\n    </div>\n    <div class=\"pokemon-image\">\n        <img [src]=\"imgUrl +'/'+ pokemon.number + '.png'\" [alt]=\"pokemon?.name\">\n    </div>\n</div>"
+        },
+        {
+            "name": "PokedexComponent",
+            "id": "component-PokedexComponent-066865b54b80f059ec997e2a1c69b903",
+            "file": "src/app/modules/pokedex/pokedex.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-pokedex",
+            "styleUrls": [
+                "./pokedex.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./pokedex.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "pokemons$",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                },
+                {
+                    "name": "requestsPokemon$",
+                    "type": "Observable<any>",
+                    "optional": false,
+                    "description": "",
+                    "line": 32
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  ChangeDetectionStrategy,\n  AfterViewChecked,\n  AfterViewInit,\n  ChangeDetectorRef,\n} from '@angular/core';\nimport { PokedexService } from '../../shared/services/pokedex.service';\nimport {\n  map,\n  combineAll,\n  tap,\n  zipAll,\n  debounceTime,\n  concatMap,\n  concatAll,\n  scan,\n  flatMap,\n  reduce,\n} from 'rxjs/operators';\nimport { Observable, forkJoin, zip } from 'rxjs';\n\n@Component({\n  selector: 'app-pokedex',\n  templateUrl: './pokedex.component.html',\n  styleUrls: ['./pokedex.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PokedexComponent implements OnInit {\n  pokemons$: any;\n  requestsPokemon$: Observable<any>;\n\n  constructor(\n    private pokedexService: PokedexService,\n    private cd: ChangeDetectorRef\n  ) {}\n\n  ngOnInit(): void {\n    this.pokedexService\n      .getAllPokemons()\n      .pipe(\n        map(\n          (response) =>\n            (this.requestsPokemon$ = response.map((pokemon) =>\n              this.pokedexService.getPokemon(pokemon.url)\n            ))\n        )\n      )\n      .subscribe();\n\n    setTimeout(() => {\n      this.cd.markForCheck();\n      this.pokemons$ = forkJoin(this.requestsPokemon$).pipe(\n        scan((acc, val) => [...acc, ...val], []),\n        flatMap((items) => items),\n        map((res) => {\n          const badges = res.types.map((item) => item.type.name);\n          const [type] = badges;\n          return {\n            number: res.id,\n            name: res.name,\n            badges,\n            type,\n          };\n        }),\n        reduce((all, item) => [...all, item], [])\n      );\n    }, 100);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".pokedex-container {\n    background-color: #ccc;\n    margin: 0 auto;\n    padding: 2rem 0;\n    max-width: 1440px;\n    width: 100%;\n    app-texts {\n        text-align: center;\n    }\n}",
+                    "styleUrl": "./pokedex.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "pokedexService",
+                        "type": "PokedexService"
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef"
+                    }
+                ],
+                "line": 32,
+                "jsdoctags": [
+                    {
+                        "name": "pokedexService",
+                        "type": "PokedexService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"pokedex-container\">\n    <app-texts [kind]=\"'app-title'\" [label]=\"'Welcome Pokédex!'\"></app-texts>\n    <ng-container *ngIf=\"pokemons$ | async as pokemons\">\n        <app-cards *ngFor=\"let pokemon of pokemons\" [pokemon]=\"pokemon\"></app-cards>\n    </ng-container>\n</div>"
+        },
+        {
+            "name": "TextsComponent",
+            "id": "component-TextsComponent-9536c93d5ae7bf468ec8d4cdd47cda45",
+            "file": "src/app/shared/components/texts/texts.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-texts",
+            "styleUrls": [
+                "./texts.component.scss"
+            ],
+            "styles": [],
+            "template": "<ng-container [ngSwitch]=\"kind\">    <h1\n      *ngSwitchCase=\"'title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"title\"\n    >\n      {{ label }}\n    </h1>\n    <h2\n      *ngSwitchCase=\"'app-title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"app-title\"\n    >\n      {{ label }}\n    </h2>\n    <h3\n      *ngSwitchCase=\"'filter-title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"filter-title\"\n    >\n      {{ label }}\n    </h3>\n    <p\n      *ngSwitchCase=\"'description'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"description\"\n    >\n      {{ label }}\n    </p>\n    <p\n      *ngSwitchCase=\"'pokemon-name'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-name\"\n    >\n      {{ label }}\n    </p>\n    <span\n      *ngSwitchCase=\"'pokemon-number'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-number\"\n      >#{{ label }}</span\n    >\n    <p\n      *ngSwitchCase=\"'pokemon-type'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-type\"\n    >\n      {{ label }}\n    </p>\n  </ng-container>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "color",
+                    "line": 61,
+                    "type": "string"
+                },
+                {
+                    "name": "kind",
+                    "line": 59,
+                    "type": "string"
+                },
+                {
+                    "name": "label",
+                    "line": 60,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'app-texts',\n  template: `<ng-container [ngSwitch]=\"kind\">\n    <h1\n      *ngSwitchCase=\"'title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"title\"\n    >\n      {{ label }}\n    </h1>\n    <h2\n      *ngSwitchCase=\"'app-title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"app-title\"\n    >\n      {{ label }}\n    </h2>\n    <h3\n      *ngSwitchCase=\"'filter-title'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"filter-title\"\n    >\n      {{ label }}\n    </h3>\n    <p\n      *ngSwitchCase=\"'description'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"description\"\n    >\n      {{ label }}\n    </p>\n    <p\n      *ngSwitchCase=\"'pokemon-name'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-name\"\n    >\n      {{ label }}\n    </p>\n    <span\n      *ngSwitchCase=\"'pokemon-number'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-number\"\n      >#{{ label }}</span\n    >\n    <p\n      *ngSwitchCase=\"'pokemon-type'\"\n      [ngStyle]=\"{ color: color ? color : '#000000' }\"\n      class=\"pokemon-type\"\n    >\n      {{ label }}\n    </p>\n  </ng-container>`,\n  styleUrls: ['./texts.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class TextsComponent {\n  @Input() kind: string;\n  @Input() label: string;\n  @Input() color: string;\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".title {\n    font: 10rem 'SF Pro Display Bold';\n}\n.app-title {\n    font: 3.2rem 'SF Pro Display Bold';\n}\n.filter-title {\n    font: 1.6rem 'SF Pro Display Bold';\n}\n.description {\n    font-size: 1.6rem;\n}\n.pokemon-name {\n    font: 2.6rem 'SF Pro Display Bold';\n}\n.pokemon-number {\n    font: 1.2rem 'SF Pro Display Bold';\n}\n.pokemon-type {\n    font: 1.2rem 'SF Pro Display Medium';\n}",
+                    "styleUrl": "./texts.component.scss"
+                }
+            ],
+            "stylesData": ""
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "BadgesModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "BadgesComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "BadgesComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ButtonsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ButtonsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "ButtonsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "CardsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "CardsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "BadgesModule"
+                        },
+                        {
+                            "name": "TextsModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "CardsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "PokedexModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "PokedexComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "PokedexRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "PokedexRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "SharedComponentsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "BadgesModule"
+                        },
+                        {
+                            "name": "ButtonsModule"
+                        },
+                        {
+                            "name": "CardsModule"
+                        },
+                        {
+                            "name": "TextsModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "TextsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "TextsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "TextsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "ApplicationTitle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'app-title',\n    label: 'Application Title',\n  },\n})"
+            },
+            {
+                "name": "Bug",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'bug',\n  },\n})"
+            },
+            {
+                "name": "CardBulbasaur",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Bulbasaur',\n      number: '1',\n      type: 'grass',\n      badges: ['grass', 'poison'],\n    },\n  },\n})"
+            },
+            {
+                "name": "CardCharmander",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Charmander',\n      number: '4',\n      type: 'fire',\n      badges: ['fire'],\n    },\n  },\n})"
+            },
+            {
+                "name": "CardSquirtle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Squirtle',\n      number: '7',\n      type: 'water',\n      badges: ['water'],\n    },\n  },\n})"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "Dark",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'dark',\n  },\n})"
+            },
+            {
+                "name": "Description",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'description',\n    label: 'Description',\n  },\n})"
+            },
+            {
+                "name": "Dragon",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'dragon',\n  },\n})"
+            },
+            {
+                "name": "Electric",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'electric',\n  },\n})"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "Fairy",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fairy',\n  },\n})"
+            },
+            {
+                "name": "Fighting",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fighting',\n  },\n})"
+            },
+            {
+                "name": "FilterTitle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'filter-title',\n    label: 'Filter Title',\n  },\n})"
+            },
+            {
+                "name": "Fire",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fire',\n  },\n})"
+            },
+            {
+                "name": "Flying",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'flying',\n  },\n})"
+            },
+            {
+                "name": "Ghost",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ghost',\n  },\n})"
+            },
+            {
+                "name": "Grass",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'grass',\n  },\n})"
+            },
+            {
+                "name": "Ground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ground',\n  },\n})"
+            },
+            {
+                "name": "Ice",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ice',\n  },\n})"
+            },
+            {
+                "name": "metadata",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "moduleMetadata({\n  imports: [BadgesModule],\n})"
+            },
+            {
+                "name": "metadata",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "",
+                "defaultValue": "moduleMetadata({\n  imports: [ButtonsModule],\n})"
+            },
+            {
+                "name": "metadata",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "",
+                "defaultValue": "moduleMetadata({\n  imports: [CardsModule],\n})"
+            },
+            {
+                "name": "metadata",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "moduleMetadata({\n  imports: [TextsModule],\n})"
+            },
+            {
+                "name": "Normal",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'normal',\n  },\n})"
+            },
+            {
+                "name": "Poison",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'poison',\n  },\n})"
+            },
+            {
+                "name": "PokemonName",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-name',\n    label: 'Pokémon Name',\n  },\n})"
+            },
+            {
+                "name": "PokemonNumber",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-number',\n    label: 'Pokémon Number',\n  },\n})"
+            },
+            {
+                "name": "PokemonType",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-type',\n    label: 'Pokémon Type',\n  },\n})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    primary: true,\n    label: 'Primary',\n  },\n})"
+            },
+            {
+                "name": "Psychic",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'psychic',\n  },\n})"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "literal type"
+            },
+            {
+                "name": "Rock",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'rock',\n  },\n})"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    label: 'Secondary',\n  },\n})"
+            },
+            {
+                "name": "Selected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    primary: true,\n    label: 'Selected',\n    selected: true,\n  },\n})"
+            },
+            {
+                "name": "Steel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'steel',\n  },\n})"
+            },
+            {
+                "name": "Title",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'title',\n    label: 'Title',\n  },\n})"
+            },
+            {
+                "name": "Water",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'water',\n  },\n})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/app/shared/components/texts/texts.stories.ts": [
+                {
+                    "name": "ApplicationTitle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'app-title',\n    label: 'Application Title',\n  },\n})"
+                },
+                {
+                    "name": "Description",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'description',\n    label: 'Description',\n  },\n})"
+                },
+                {
+                    "name": "FilterTitle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'filter-title',\n    label: 'Filter Title',\n  },\n})"
+                },
+                {
+                    "name": "metadata",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "moduleMetadata({\n  imports: [TextsModule],\n})"
+                },
+                {
+                    "name": "PokemonName",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-name',\n    label: 'Pokémon Name',\n  },\n})"
+                },
+                {
+                    "name": "PokemonNumber",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-number',\n    label: 'Pokémon Number',\n  },\n})"
+                },
+                {
+                    "name": "PokemonType",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'pokemon-type',\n    label: 'Pokémon Type',\n  },\n})"
+                },
+                {
+                    "name": "Title",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/texts/texts.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: TextsComponent,\n  props: {\n    kind: 'title',\n    label: 'Title',\n  },\n})"
+                }
+            ],
+            "src/app/shared/components/badges/badges.stories.ts": [
+                {
+                    "name": "Bug",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'bug',\n  },\n})"
+                },
+                {
+                    "name": "Dark",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'dark',\n  },\n})"
+                },
+                {
+                    "name": "Dragon",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'dragon',\n  },\n})"
+                },
+                {
+                    "name": "Electric",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'electric',\n  },\n})"
+                },
+                {
+                    "name": "Fairy",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fairy',\n  },\n})"
+                },
+                {
+                    "name": "Fighting",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fighting',\n  },\n})"
+                },
+                {
+                    "name": "Fire",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'fire',\n  },\n})"
+                },
+                {
+                    "name": "Flying",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'flying',\n  },\n})"
+                },
+                {
+                    "name": "Ghost",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ghost',\n  },\n})"
+                },
+                {
+                    "name": "Grass",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'grass',\n  },\n})"
+                },
+                {
+                    "name": "Ground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ground',\n  },\n})"
+                },
+                {
+                    "name": "Ice",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'ice',\n  },\n})"
+                },
+                {
+                    "name": "metadata",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "moduleMetadata({\n  imports: [BadgesModule],\n})"
+                },
+                {
+                    "name": "Normal",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'normal',\n  },\n})"
+                },
+                {
+                    "name": "Poison",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'poison',\n  },\n})"
+                },
+                {
+                    "name": "Psychic",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'psychic',\n  },\n})"
+                },
+                {
+                    "name": "Rock",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'rock',\n  },\n})"
+                },
+                {
+                    "name": "Steel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'steel',\n  },\n})"
+                },
+                {
+                    "name": "Water",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/badges/badges.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BadgesComponent,\n  props: {\n    type: 'water',\n  },\n})"
+                }
+            ],
+            "src/app/shared/components/cards/cards.stories.ts": [
+                {
+                    "name": "CardBulbasaur",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/cards/cards.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Bulbasaur',\n      number: '1',\n      type: 'grass',\n      badges: ['grass', 'poison'],\n    },\n  },\n})"
+                },
+                {
+                    "name": "CardCharmander",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/cards/cards.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Charmander',\n      number: '4',\n      type: 'fire',\n      badges: ['fire'],\n    },\n  },\n})"
+                },
+                {
+                    "name": "CardSquirtle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/cards/cards.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: CardsComponent,\n  props: {\n    pokemon: {\n      name: 'Squirtle',\n      number: '7',\n      type: 'water',\n      badges: ['water'],\n    },\n  },\n})"
+                },
+                {
+                    "name": "metadata",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/cards/cards.stories.ts",
+                    "type": "",
+                    "defaultValue": "moduleMetadata({\n  imports: [CardsModule],\n})"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "literal type"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/app/shared/components/buttons/buttons.stories.ts": [
+                {
+                    "name": "metadata",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                    "type": "",
+                    "defaultValue": "moduleMetadata({\n  imports: [ButtonsModule],\n})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    primary: true,\n    label: 'Primary',\n  },\n})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    label: 'Secondary',\n  },\n})"
+                },
+                {
+                    "name": "Selected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/buttons/buttons.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: ButtonsComponent,\n  props: {\n    primary: true,\n    label: 'Selected',\n    selected: true,\n  },\n})"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "e2e/src/app.po.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "AppPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/pokedex/pokedex.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PokedexComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BadgesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Bug",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Dark",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Dragon",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Electric",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Fairy",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Fighting",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Fire",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Flying",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Ghost",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Grass",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Ground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Ice",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "metadata",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Normal",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Poison",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Psychic",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Rock",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Steel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/badges/badges.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Water",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/buttons/buttons.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "metadata",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/buttons/buttons.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selected",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CardsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Pokemon",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CardBulbasaur",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CardCharmander",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CardSquirtle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/cards/cards.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "metadata",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TextsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ApplicationTitle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Description",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FilterTitle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "metadata",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PokemonName",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PokemonNumber",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PokemonType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/texts/texts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Title",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/services/pokedex.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "PokedexService",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
