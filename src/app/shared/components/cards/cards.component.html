@@ -1,0 +1,14 @@
+<div class="pokemon-card" #card>
+    <div class="card-container">
+        <div class="pokemon-infos">
+            <app-texts [kind]="'pokemon-number'" [label]="pokemon?.number | number:'3.0-5'" [color]="'rgba(23, 23, 27, 0.6)'"></app-texts>
+            <app-texts [kind]="'pokemon-name'" [label]="pokemon?.name | titlecase" [color]="'#ffffff'"></app-texts>
+            <div class="pokemon-badges">
+                <app-badges *ngFor="let badge of pokemon?.badges" [type]="badge"></app-badges>
+            </div>
+        </div>
+    </div>
+    <div class="pokemon-image">
+        <img [src]="imgUrl +'/'+ pokemon.number + '.png'" [alt]="pokemon?.name">
+    </div>
+</div>

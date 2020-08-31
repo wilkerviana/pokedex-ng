@@ -1,0 +1,59 @@
+.pokemon-card {
+    border-radius: 1rem;
+    max-width: 335px;
+    margin: 5rem 0 2rem;
+    position: relative;
+    width: 100%;
+    .card-container {
+        background: transparent;
+        overflow: hidden;
+        position: relative;
+        padding: 2rem 1.6rem;
+        height: 100%;
+        width: 100%;
+        &:after {
+            content: '';
+            background-image: url('../../../../assets/patterns/pokeball.svg');
+            background-repeat: no-repeat;
+            background-size: 145px;
+            background-position: top right;
+            position: absolute;
+            opacity: .1;
+            top: 0;
+            right: -30px;
+            height: 145px;
+            width: 145px;
+        }
+        &:before {
+            content: '';
+            background-image: url('../../../../assets/patterns/dots.svg');
+            background-repeat: no-repeat;
+            background-size: 75px;
+            background-position: top center;
+            position: absolute;
+            opacity: .075;
+            top: 0;
+            left: 7rem;
+            height: 32px;
+            width: 74px;
+        }
+    }
+}
+.pokemon-badges {
+    display: flex;
+    margin-top: .5rem;
+    & * {
+        margin-right: 5px;
+    }
+}
+
+.pokemon-image {
+    position: absolute;
+    top: -4rem;
+    right: 1rem;
+    width: 130px;
+    z-index: 100;
+    img {
+        width: 100%;
+    }
+}
