@@ -1,0 +1,22 @@
+.wrapper {
+    background: linear-gradient(318deg, rgba(236,236,236,1) 0%, rgba(245,245,245,1) 100%);
+    height: auto;
+}
+.pokedex-container {
+    margin: 0 auto;
+    padding: 2rem 0;
+    max-width: 1300px;
+    width: 100%;
+    app-texts {
+        text-align: center;
+    }
+    .pokedex-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        & > * {
+            min-width: 335px;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<div class="wrapper">
+    <div class="pokedex-container">
+        <app-texts [kind]="'app-title'" [label]="'Welcome Pokédex!'" [color]="'#747476'"></app-texts>
+        <div class="pokedex-cards" *ngIf="pokemons$ | async as pokemons">
+            <app-cards *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-cards>
+        </div>
+    </div>
+</div>
